@@ -1,0 +1,9 @@
+# Mục V.C: PlainTAtt với các tập kênh cảm biến, seed 101, đánh giá val
+description: Đối chứng nguồn cảm biến
+seeds: [101]
+eval_splits: [val]
+runs:
+  s1_only:  {model: plain_tatt, variant: {model: {channels: [[21, 24]]}}}
+  s2_only:  {model: plain_tatt, variant: {model: {channels: [[0, 21]]}}}
+  s1s2:     {model: plain_tatt, variant: {model: {channels: [[0, 24]]}}}
+  s1s2_q:   {model: plain_tatt, variant: {model: {channels: [[0, 27]]}}}   # dùng lại cho optical dropout

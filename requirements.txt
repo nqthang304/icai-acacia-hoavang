@@ -1,0 +1,12 @@
+# torch cài riêng theo máy (Kaggle đã có sẵn torch + CUDA)
+numpy
+pandas
+scipy
+scikit-learn
+xgboost
+pyyaml
+matplotlib
+rasterio
+tqdm
+tabulate
+pytest

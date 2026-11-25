@@ -1,0 +1,11 @@
+# Chạy thử nhanh toàn bộ pipeline (vài epoch, ít mảnh) để kiểm tra code trước khi chạy thật
+description: Smoke test
+seeds: [101]
+eval_splits: [val, test]
+overrides: {train: {max_epochs: 2, patience: 2, num_workers: 0, debug_patches: 4}}
+runs:
+  unet:  {model: unet}
+  utae:  {model: utae}
+  tsvit: {model: tsvit}
+  quast: {model: quast}
+  plain_w2: {model: plain_tatt, variant: {model: {window: 2}}}

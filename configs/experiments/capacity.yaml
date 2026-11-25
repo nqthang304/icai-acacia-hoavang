@@ -1,0 +1,6 @@
+# Bảng III Panel B: U-Net base-12, base-9 x 5 seed (base-16 lấy từ main_test), đánh giá val
+description: Đối chứng dung lượng U-Net
+eval_splits: [val]
+runs:
+  unet_base12: {model: unet, variant: {model: {base: 12}}}
+  unet_base9:  {model: unet, variant: {model: {base: 9}}}

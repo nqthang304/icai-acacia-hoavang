@@ -1,0 +1,9 @@
+# Bảng IV: dùng checkpoint seed 101 đã huấn luyện (không huấn luyện thêm)
+description: Xóa quang học có kiểm soát trên 51 mảnh val
+levels: [0, 1, 2, 4, 8]                 # [paper]
+mask_seeds: [20261018]                  # [paper]; thêm seed để lặp nhiều mặt nạ (phản biện #27)
+extra_mask_seeds: [1, 2, 3, 4]          # chạy khi có cờ --extra
+models:
+  U-TAE: main_test/utae/s101
+  PlainTAtt: modality/s1s2_q/s101       # PlainTAtt cả chuỗi, đủ 27 kênh (có kênh chất lượng để "báo" mất quang học)
+  QuaST: main_test/quast/s101

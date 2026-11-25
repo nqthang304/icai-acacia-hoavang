@@ -1,0 +1,8 @@
+# Bảng I, II: 4 cấu hình chính x 5 seed, đánh giá trên test [paper V.A]
+description: Đánh giá hiện trạng trên tập test
+eval_splits: [val, test]
+runs:
+  unet:  {model: unet}
+  utae:  {model: utae}
+  tsvit: {model: tsvit}
+  quast: {model: quast}

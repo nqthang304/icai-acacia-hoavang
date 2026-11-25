@@ -1,0 +1,62 @@
+# Cấu hình chung. Mỗi giá trị ghi nguồn:
+#   [paper]  = bài báo ICAI 2026, [thesis] = báo cáo tốt nghiệp,
+#   [data]   = suy ra/kiểm chứng từ dữ liệu, [ASSUMPTION] = tự chọn vì tài liệu không ghi (xem ASSUMPTIONS.md)
+
+paths: {}                       # ghi đè bằng biến môi trường ACACIA_DATA / ACACIA_WORK
+
+data:
+  num_classes: 5                # [paper] Forest, Bare/Shrub, Acacia, Residential, Water
+  class_names: [Forest, Bare/Shrub, Acacia, Residential, Water]
+  ignore_index: 255             # [paper]
+  optical: [0, 21]              # [paper] 12 band S2 + 9 chỉ số  (khoảng [start, end))
+  sar: [21, 24]                 # [paper] VV, VH, VH-VV
+  quality: [24, 27]             # [paper] S2_nobs, S1_nobs, co_lap
+  input_channels: [0, 27]       # [paper] 27 kênh/patch-quarter; DEM không đưa vào phân đoạn
+  toa_years: [2018]             # [paper] 2018 TOA, 2019+ SR
+
+split:
+  file: configs/split_blocks.json   # [data] khối 3x3 -> train/val/test, tìm để khớp mọi mốc của bài báo
+  block_size: 3                     # [paper]
+  buffer_m: 0                       # [paper] chia chính không có buffer; 640/1280 cho thử nghiệm riêng
+  patch_m: 640
+
+normalize:
+  p_low: 1                      # [paper] cắt phân vị 1-99
+  p_high: 99
+  clip: 5.0                     # [paper] cắt về [-5, 5]
+  zero_iqr_scale: 1.0           # [ASSUMPTION] kênh có IQR = 0 (vd co_lap nhị phân) -> chia cho 1
+  sample_pixels: 2000000        # [ASSUMPTION] số pixel lấy mẫu để ước lượng phân vị
+
+loss:
+  ce_weight: 0.6                # [paper]
+  dice_weight: 0.4              # [paper]
+  dice_mask_ignore: false       # [paper] bản gốc KHÔNG che pixel 255 ở mẫu số Dice (true = bản sửa)
+  class_weight: inv_sqrt        # [paper] 1/sqrt(tần suất), chuẩn hóa trung bình 1, cap 5
+  class_weight_cap: 5.0
+  dice_smooth: 1.0              # [ASSUMPTION]
+  mono_weight: 0.0              # QuaST ghi đè 0,05 [paper]
+
+sampling:
+  oversample: {4: 5.0, 3: 1.5}  # [paper] Water x5, Residential x1.5 (theo mẫu chứa lớp đó - ASSUMPTION)
+
+optim:
+  weight_decay: 1.0e-4          # [paper]
+  lr: 2.0e-4                    # [paper] mô hình thời gian; U-Net ghi đè 3e-4
+  warmup_epochs: 1              # [paper]
+  grad_clip: 1.0                # [paper]
+
+train:
+  max_epochs: 100               # [paper] "15-100 epochs"
+  patience: 15                  # [paper] dừng sớm sau 15 epoch không tăng val mIoU
+  batch_size: 2                 # [paper] mô hình thời gian
+  accum_steps: 8                # [paper] effective 16
+  num_workers: 2
+  amp: true                     # [ASSUMPTION] mixed precision trên GPU
+  augment: true                 # [paper] lật + xoay 90 độ
+  skip_unlabeled: true          # [ASSUMPTION] bỏ mẫu huấn luyện không có pixel nhãn nào
+
+eval:
+  mask_cross_split_polygons: true   # [paper] 60 polygon vắt ranh giới bị loại khỏi đánh giá
+  batch_size: 4
+
+seeds: [101, 202, 303, 404, 505]   # [paper]

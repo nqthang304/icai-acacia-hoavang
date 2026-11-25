@@ -1,0 +1,8 @@
+# Mục V.C: thành phần QuaST, seed 101, đánh giá val (QuaST đầy đủ = main_test/quast seed 101)
+description: Ablation thành phần QuaST
+seeds: [101]
+eval_splits: [val]
+runs:
+  mean_encoders: {model: quast, variant: {model: {fusion: mean}, loss: {mono_weight: 0.0}}}
+  gate_no_quality: {model: quast, variant: {model: {fusion: gate_noq}, loss: {mono_weight: 0.0}}}
+  gate_no_mono:  {model: quast, variant: {loss: {mono_weight: 0.0}}}

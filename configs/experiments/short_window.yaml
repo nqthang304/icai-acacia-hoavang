@@ -1,0 +1,7 @@
+# Bảng III Panel B: các biến thể T = 2, seed 101 (WindowNet-TAtt = context_sweep/T2)
+description: Đối chứng cửa sổ ngắn
+seeds: [101]
+eval_splits: [val]
+runs:
+  quast_w2: {model: quast, variant: {model: {window: 2}}}
+  utae_w2:  {model: utae,  variant: {model: {window: 2}}}

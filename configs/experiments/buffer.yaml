@@ -1,0 +1,7 @@
+# Mục V.A: QuaST seed 101 với buffer không gian quanh tập val, đánh giá val
+description: Độ nhạy buffer không gian
+seeds: [101]
+eval_splits: [val]
+runs:
+  buffer640:  {model: quast, variant: {split: {buffer_m: 640}}}
+  buffer1280: {model: quast, variant: {split: {buffer_m: 1280}}}

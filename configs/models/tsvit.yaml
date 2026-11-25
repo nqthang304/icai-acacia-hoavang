@@ -1,0 +1,2 @@
+# TSViT phân rã thời gian -> không gian, xuất theo quý, 1,03M (bài báo: 1,03M)
+model: {name: tsvit, patch: 4, dim: 128, t_depth: 4, s_depth: 3, heads: 4, mlp_ratio: 2.0, window: null}

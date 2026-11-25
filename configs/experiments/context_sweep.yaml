@@ -1,0 +1,11 @@
+# Bảng III Panel A, Hình 5: PlainTAtt/WindowNet backbone cố định, T ∈ {1,2,4,8,16,32}, seed 101 [paper V.B]
+description: Quét độ dài ngữ cảnh
+seeds: [101]
+eval_splits: [val]
+runs:
+  T1:  {model: plain_tatt, variant: {model: {window: 1}}}
+  T2:  {model: plain_tatt, variant: {model: {window: 2}}}    # = WindowNet-TAtt (Bảng III Panel B)
+  T4:  {model: plain_tatt, variant: {model: {window: 4}}}
+  T8:  {model: plain_tatt, variant: {model: {window: 8}}}
+  T16: {model: plain_tatt, variant: {model: {window: 16}}}
+  T32: {model: plain_tatt, variant: {model: {window: 32}}}
